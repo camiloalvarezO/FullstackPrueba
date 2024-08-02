@@ -2,11 +2,27 @@ const express = require('express');
 const { Mongoose, default: mongoose } = require('mongoose');
 const routes = require('./API/routes');
 const bodyParser = require('body-parser')
+const cors = require('cors')
 // inicializar el servidor de express
 const app = express()
 
-const puerto = 3000 || 4000;
+const puerto = 4000 || 4001;
 
+// se le puede decir a cors que haga una whitelist de ips de esta forma
+// const whitelist = ['http://localhost:3000'];
+// const corsOptions = {
+//     origin: (origin, callback) =>  {
+//         // console.log(origin);
+//         const existe = whitelist.some( dominio => dominio === origin);
+//         if ( existe ) {
+//             callback(null, true)
+//         } else {
+//             callback(new Error('No Permitido por CORS'))
+//         }
+//     }
+// }
+
+app.use(cors())
 Mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/veterinaria',{
     useNewUrlParser: true, 

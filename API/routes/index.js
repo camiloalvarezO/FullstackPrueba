@@ -19,5 +19,12 @@ module.exports = function() {
         pacienteController.obtenerId
     )
 
+    router.put('/pacientes/:_id',
+        pacienteController.modificarPaciente
+    )
+
+    router.delete('/pacientes/:id',
+        pacienteController.eliminarPaciente
+    )
     return router
 }

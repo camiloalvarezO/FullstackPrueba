@@ -18,6 +18,10 @@ const pacientesSchema = new Schema({
         type: String,
         trim:true
     },
+    sintomas:{
+        type:String,
+        trim:true
+    }
 })
 
 module.exports = mongoose.model('paciente', pacientesSchema)

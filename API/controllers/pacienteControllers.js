@@ -39,3 +39,29 @@ exports.obtenerId = async (req,res,next) =>{
         next();        
     }
 }
+
+exports.modificarPaciente = async (req,res,next) =>{
+    console.log(req.body);
+    try {
+
+        const Paciente = await paciente.findOneAndUpdate({_id: req.params._id}, req.body,{
+            new:true
+        })
+        res.json(Paciente)
+    } catch (error) {
+        console.log("error al modificar un paciente", error);
+        next()
+    }
+}
+
+exports.eliminarPaciente = async (req,res,next) =>{
+    
+    try {
+        console.log("eliminando", req.body);
+        await paciente.findByIdAndDelete({_id : req.params.id});
+        res.json({mensaje:"eliminando"});
+    } catch (error) {
+        console.log('error al eliminar un registro', error);
+        next()
+    }
+}
