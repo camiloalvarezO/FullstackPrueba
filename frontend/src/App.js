@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Paciente from "./components/Paciente";
 import NuevaCita from "./components/NuevaCita";
 import Cita from "./components/Cita";
+import EditarCita from "./components/EditarCita";
 import clienteAxios from "./components/config/axios";
 
 function App() {
@@ -75,6 +76,8 @@ function App() {
           // 
           
         />
+      <Route exact path="/cita/editar/:_id" 
+             element={<EditarCita guardarConsultar={guardarConsultar} />} />
       </Routes>
     </Router>
   );
