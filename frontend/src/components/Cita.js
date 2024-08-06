@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import clienteAxios from "./config/axios";
+import Swal from "sweetalert2";
 
 const Cita = ({ citas, guardarConsultar }) => {
     const { _id } = useParams();
@@ -8,14 +9,38 @@ const Cita = ({ citas, guardarConsultar }) => {
     const cita = citas.find(cita => cita._id === _id);
 
     const eliminarCita = id => {
-        clienteAxios.delete(`/pacientes/${id}`)
-            .then(() => {
-                guardarConsultar(true);
-                navigate('/');
-            })
-            .catch(err => console.log(err));
+        
+        // Mostrar alerta antes de eliminar
+        Swal.fire({
+            title: "Estas seguro?",
+            text: "No se podrá recuperar!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Si, Quiero eliminarlo!",
+            cancelButtonText: "Cancelar"
+            }).then((result) => {
+                // Si el usuario confirma la eliminación
+                if (result.isConfirmed) {
+                        // Eliminar en la base de datos
+                    clienteAxios.delete(`/pacientes/${id}`)
+                        .then(() => {   
+                        guardarConsultar(true);
+                        navigate('/');
+                    })
+                    .catch(err => console.log(err));
+                    // Mostrar alerta
+                    Swal.fire({
+                        title: "Deleted!",
+                        text: "Your file has been deleted.",
+                        icon: "success"
+                    });
+                }
+            });    
     };
 
+    
     if (!cita) return (
         <div className="container mt-1 py-5">
             <div className="row">
