@@ -22,11 +22,17 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "REACT-start": "react-scripts start",
+    "REACT-build": "react-scripts build",
+    "REACT-test": "react-scripts test --env=jsdom",
+    "REACT-eject": "react-scripts eject",
+    "electron-build": "electron-builder",
+    "release": "yarn react-build && yarn electron-builder --publish=always",
+    "build": "yarn react-build && yarn electron-build",
+    "start": "concurrently \"cross-env BROWSER=none npm run react-start\" \"wait-on http://localhost:3000 && electron .\""
   },
+  "main": "public/electron.js",
+  "homepage": "./",
   "eslintConfig": {
     "extends": [
       "react-app",
